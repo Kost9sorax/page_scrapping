@@ -30,33 +30,18 @@ def get_rest_data():
             data = json.loads(str_json)
             root = re.search(r'profileKey-\d+', str(data))
             profile_key_root = root.group(0)
-
             profile_key = data.get(profile_key_root).get('info')
-            title = profile_key.get('name')
-            image = data.get(profile_key_root).get('pathThumb')
-            category = profile_key.get('categories')[0].get('name')
-            rating = profile_key.get('stars')
-            visits = profile_key.get('visits')
-            likes = profile_key.get('ups')
-            dislikes = profile_key.get('downs')
-            capacity_in = profile_key.get('capacityIn')
-            capacity_out = profile_key.get('capacityOut')
-            prices = profile_key.get('priceRangeText')
-            working_hours = profile_key.get('workingHours')
-            phones = profile_key.get('phones')
-
             description = data.get(profile_key_root).get('info').get('description')
-            about = description.get('aboutVenue')
-            appropriate_for = description.get('appropriateFor')
-            music = description.get('music')
-            venue_type = description.get('venueType')
-            cuisine = description.get('cuisine')
-            facilities = description.get('facilities')
-            restaurant = {'title': title, 'image': image, 'category': category, 'rating': rating, 'visits': visits,
-                          'likes': likes, 'dislikes': dislikes, 'capacity_in': capacity_in, 'capacity_out': capacity_out,
-                          'prices': prices, 'working_hours': working_hours, 'phones': phones, 'about': about,
-                          'appropriate_for': appropriate_for, 'music': music, 'venue_type': venue_type, 'cuisine': cuisine,
-                          'facilities': facilities}
+            restaurant = {'title': profile_key.get('name'), 'image': data.get(profile_key_root).get('pathThumb'),
+                          'category': profile_key.get('categories')[0].get('name'), 'rating': profile_key.get('stars'),
+                          'visits': profile_key.get('visits'),
+                          'likes': profile_key.get('ups'), 'dislikes': profile_key.get('downs'),
+                          'capacity_in': profile_key.get('capacityIn'), 'capacity_out': profile_key.get('capacityOut'),
+                          'prices': profile_key.get('priceRangeText'), 'working_hours': profile_key.get('workingHours'),
+                          'phones': profile_key.get('phones'), 'about': description.get('aboutVenue'),
+                          'appropriate_for': description.get('appropriateFor'), 'music': description.get('music'),
+                          'venue_type': description.get('venueType'), 'cuisine': description.get('cuisine'),
+                          'facilities': description.get('facilities')}
             restaurants['restaurants'].append(restaurant)
 
     def write_rest_data():
